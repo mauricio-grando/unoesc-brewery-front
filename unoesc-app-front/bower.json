@@ -18,5 +18,7 @@
     "angular": "^1.5.0",
     "angular-route": "^1.5.0",
     "bootstrap": "^3.3.6"
-  }
+  },
+  "homepage": "https://github.com/mauricio-grando/unoesc-brewery-front",
+  "moduleType": []
 }
