@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'), 
-	Brewery = require('../models/brewery.model');
+	Brewery = require('../models/brewery.model'),
+	Moment = require('moment-timezone');
 
 exports.findAll = function(req, res) {
 	Brewery.find({}).exec(function(err, breweries) {
@@ -66,7 +67,7 @@ exports.breweryById = function(req, res, next, breweryId) {
 // função para salvar os dados
 // o parametro 'op' é a string da operação para usar na mensagem
 function saveAll(brewery, res, op) {
-	brewery.lastModifiedDate = new Date();
+	brewery.lastModifiedDate = Moment().tz("America/Sao_Paulo").format();
 	brewery.save(function(err) {
 		if (err) {
 			res.status(400).json({

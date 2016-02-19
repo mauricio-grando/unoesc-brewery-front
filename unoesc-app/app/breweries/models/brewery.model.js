@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'), 
+var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var BrewerySchema = new Schema({
@@ -15,7 +15,7 @@ var BrewerySchema = new Schema({
 	creationDate: {
 		type: Date
     },
-     lastModifiedDate: {
+    lastModifiedDate: {
      	type: Date
 	}
 });
