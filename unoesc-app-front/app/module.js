@@ -2,7 +2,7 @@
 	'use strict';
 
 	// faz a injeçaõ das dependencias, senão os módulos não vão ser carregados
-	angular.module('app', ['ngRoute', 'brewery']).config(Config);
+	angular.module('app', ['ngRoute', 'brewery', 'beer']).config(Config);
 
 	function Config($routeProvider) {
 		$routeProvider.when('/',{
