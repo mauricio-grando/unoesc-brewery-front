@@ -20,5 +20,8 @@ var BrewerySchema = new Schema({
 	}
 });
 
+// para data padrao
+// default: Date.now()
+
 // exportando o modelo criado como Brewery e usando o schema criado
 module.exports = mongoose.model('Brewery', BrewerySchema);
