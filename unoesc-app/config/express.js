@@ -21,6 +21,7 @@ module.exports = function(db) {
 	// chama as rotas
 	require('../app/core/routes/core.routes')(api);
 	require('../app/breweries/routes/breweries.routes')(api);
+	require('../app/beers/routes/beers.routes')(api);
 	
 	// usa a api chamada acima na url /api, mas pode ser trocado para outra coisa
 	app.use('/api', api);
