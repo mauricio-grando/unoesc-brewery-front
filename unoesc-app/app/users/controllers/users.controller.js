@@ -20,6 +20,9 @@ exports.find = function(req, res) {
 
 exports.create = function(req, res) {
 	var user = new User(req.body);
+	if(user.roles.length == 0) {
+		user.roles = ['user'];
+	}
 	saveAll(user, res, 'criado');	
 };
 
@@ -28,7 +31,7 @@ exports.update = function(req, res) {
 	user.name = req.body.name;
 	user.email = req.body.email;
 	user.beer = req.body.beer;
-
+	user.roles = req.body.roles;
 	if(req.body.password) {
 		user.password = req.body.password;
 	}

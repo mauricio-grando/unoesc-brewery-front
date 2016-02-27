@@ -19,6 +19,10 @@ var UserSchema = new Schema({
     beer: {
 		type: Schema.ObjectId,
 		ref: 'Beer'
+	},
+	roles: {
+		type: Array,
+		default: ['user']
 	}
 });
 

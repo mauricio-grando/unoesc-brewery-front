@@ -12,6 +12,33 @@
 		// facilita na migração
 		var vm = this; // virtual model que liga a view (html) ao controller (crud)
 		vm.empty = {};
+
+		// criação do array de roles
+		vm.roles = [
+			{
+				name: 'Admin',
+				value: 'admin'
+			},
+			{
+				name: 'User',
+				value: 'user'
+			}
+		];
+
+		// quando faz o click no checkbox é validado se já tem esse value
+		// se tem então é maior que -1 e remove o elemento
+		// se não tem, ele adiciona a role no array do usuário
+		vm.toggleRoles = function(role) {
+			var index = vm.user.roles.indexOf(role);
+			if(index > -1) {
+				// o splice remove a partir do idx um elemento
+				vm.user.roles.splice(index, 1);
+			} else {
+				// o push adiciona um elemento ao array, que é o role pois ele não existe
+				vm.user.roles.push(role);
+			}
+		};
+
 		vm.findAll = function() {
 			// chama o método de consulta
 			UserService.findAll().then(function(response) {
