@@ -18,14 +18,14 @@
 				<tr>
 					<th>Nome</th>
 					<th>Descrição</th>
-					<th>Data de Criação</th>
-					<th>Data da Última Alteração</th>
+					<th>Criação</th>
+					<th>Última Alteração</th>
 					<th>Cervejaria</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="beer in vm.beer">
+				<tr ng-repeat="beer in vm.beers">
 					<td>{{ beer.name }}</td>
 					<td>{{ beer.description }}</td>
 					<td>{{ beer.creationDate | date:'dd-MM-yyyy HH:mm:ss' }}</td>
@@ -60,16 +60,18 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-12">
-					<label for="brewery">Cervejaria</label>
-					<select id="brewery" class="form-control" ng-model="vm.beer.brewery"></select>
+					<label for="brewery">Cervejaria:</label>
+					<select id="brewery" class="form-control" ng-model="vm.beer.brewery" ng-options="brewery as brewery.name for brewery in vm.breweries track by brewery._id">
+						<option value="">Selecione uma cervejaria</option>
+					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="pull-right">
-						<button type="reset" ng-click="vm.reset()" class="btn btn-warning">Limpar</button>
-						<button type="submit" class="btn btn-success" ng-disabled="beerForm.$invalid">Salvar</button>
-					</div>
+					 <div class="pull-right">
+                        <button class="btn btn-success" ng-disabled="beerForm.$invalid">Salvar</button>
+                        <button type="reset" ng-click="vm.reset()" class="btn btn-warning">Limpar</button>
+                    </div>
 				</div>
 			</div>
 		</form>

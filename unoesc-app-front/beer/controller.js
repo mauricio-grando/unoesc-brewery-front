@@ -25,7 +25,7 @@
 		vm.findAll();
 
 		vm.findAllBreweries = function() {
-			BeerService.findAll().then(function() {
+			BreweryService.findAll().then(function(response) {
 				vm.breweries = response.data;
 
 			}, function() {
