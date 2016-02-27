@@ -26,7 +26,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
 	var user = req.user;
 	user.name = req.body.name;
-	user.description = req.body.description;
+	user.email = req.body.email;
 	user.beer = req.body.beer;
 	saveAll(user, res, 'atualizado');
 };
