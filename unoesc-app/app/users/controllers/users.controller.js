@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 	User = require('../models/user.model')
 
 exports.findAll = function(req, res) {
-	User.find({}).populate('brewery').exec(function(err, users) {
+	User.find({}).populate('beer').exec(function(err, users) {
 		if (err) {
 			console.error(err);
 			res.status(400).json(err);
@@ -27,7 +27,7 @@ exports.update = function(req, res) {
 	var user = req.user;
 	user.name = req.body.name;
 	user.description = req.body.description;
-	user.brewery = req.body.brewery;
+	user.beer = req.body.beer;
 	saveAll(user, res, 'atualizado');
 };
 
@@ -54,7 +54,7 @@ exports.userById = function(req, res, next, userId) {
 			message: 'Usuário inválida'
 		})
 	}
-	User.findById(userId).populate('brewery').exec(function(err, user) {
+	User.findById(userId).populate('beer').exec(function(err, user) {
 		if (err) {
 			res.status(404).json(err);
 		}
