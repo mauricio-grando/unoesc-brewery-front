@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 	User = require('../models/user.model')
 
 exports.findAll = function(req, res) {
-	User.find({}).populate('beer').exec(function(err, users) {
+	User.find({}, '-password').populate('beer').exec(function(err, users) {
 		if (err) {
 			console.error(err);
 			res.status(400).json(err);
@@ -28,6 +28,10 @@ exports.update = function(req, res) {
 	user.name = req.body.name;
 	user.email = req.body.email;
 	user.beer = req.body.beer;
+
+	if(req.body.password) {
+		user.password = req.body.password;
+	}
 	saveAll(user, res, 'atualizado');
 };
 
