@@ -20,6 +20,7 @@ module.exports = function(db) {
 	
 	// chama as rotas
 	require('../app/core/routes/core.routes')(api);
+	require('../app/users/routes/auth.routes')(api);
 	require('../app/breweries/routes/breweries.routes')(api);
 	require('../app/beers/routes/beers.routes')(api);
 	require('../app/users/routes/users.routes')(api);

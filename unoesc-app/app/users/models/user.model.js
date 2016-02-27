@@ -48,8 +48,7 @@ UserSchema.methods.comparePassword = function(password, callback) {
 	} else {
 		callback(false);
 	}
-
-}
+};
 
 // exportando o modelo criado como User e usando o schema criado
 module.exports = mongoose.model('User', UserSchema);
