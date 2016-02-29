@@ -15,8 +15,9 @@ exports.login = function(req, res) {
         if (err) {
             res.status(404).json({ message: 'Usuário não encontrado' });
         }
-        user.comparePassword(req.body.password, function(valid) {
-            if (!valid) {
+        user.comparePassword(req.body.password, function(err, isValid) {
+            // se tiver erro ou a senha não é válida, retorna 401 (unauthorized)
+            if (err || !isValid) {
                 res.status(401).json({ message: 'Falha na autenticação, tente novamente' });
             } else {
                 var token = jwt.sign(user, secret);

@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	bcrypt = require('bcryptjs');
 
 var UserSchema = new Schema({
 	name: {
@@ -30,24 +31,34 @@ var UserSchema = new Schema({
 // é executado um passo antes da função save
 UserSchema.pre('save', function(next) {
 	var user = this;
-	if(this.isModified('password') || this.isNew) {
-		user.password = user.password;
-		// TODO usar lib bcryptjs para criptografar a senha
-	}
-	next();
-});
-
-UserSchema.methods.comparePassword = function(password, callback) {
-	// TODO implementar o bcrypt.compare
-
-	// o this é o usuário encontrado
-	// o primeiro parametro é o err, então se deu certo retorna null
-	if(password == this.password) {
-		// bcrypt callback(null, true);
-		callback(true);
+	if (this.isModified('password') || this.isNew) {
+		bcrypt.genSalt(10, function(err, salt) {
+			if (err) {
+				console.error(err);
+				return next(err);
+			}
+			bcrypt.hash(user.password, salt, function(err, hash) {
+				if (err) {
+					console.error(err);
+					return next(err);
+				}
+				user.password = hash;
+				next();
+			});
+		});
 	} else {
-		callback(false);
+		return next();
 	}
+});
+UserSchema.methods.comparePassword = function(password, callback) {
+	// o this é o usuário encontrado
+	// o isValid é um boolean indicando se a senha está correta ou não
+	bcrypt.compare(password, this.password, function(err, isValid) {
+		if (err) {
+			return callback(err);
+		}
+		callback(null, isValid);
+	});
 };
 
 // exportando o modelo criado como User e usando o schema criado
