@@ -1,9 +1,7 @@
 (function() {
     'use strict';
     
-    angular
-        .module('app')
-        .controller('HeaderController', HeaderController);
+    angular.module('app').controller('HeaderController', HeaderController);
     
     HeaderController.$inject = ['Storage','$location'];
     

@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	bcrypt = require('bcryptjs');
+	passwordHash = require('password-hash');
 
 var UserSchema = new Schema({
 	name: {
@@ -32,20 +32,11 @@ var UserSchema = new Schema({
 UserSchema.pre('save', function(next) {
 	var user = this;
 	if (this.isModified('password') || this.isNew) {
-		bcrypt.genSalt(10, function(err, salt) {
-			if (err) {
-				console.error(err);
-				return next(err);
-			}
-			bcrypt.hash(user.password, salt, function(err, hash) {
-				if (err) {
-					console.error(err);
-					return next(err);
-				}
-				user.password = hash;
-				next();
-			});
-		});
+		var hashedPassword = passwordHash.generate(user.password);
+		user.password = hashedPassword;
+		console.log(hashedPassword);
+		next();
+
 	} else {
 		return next();
 	}
@@ -53,12 +44,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.comparePassword = function(password, callback) {
 	// o this é o usuário encontrado
 	// o isValid é um boolean indicando se a senha está correta ou não
-	bcrypt.compare(password, this.password, function(err, isValid) {
-		if (err) {
-			return callback(err);
-		}
-		callback(null, isValid);
-	});
+	return callback(null, passwordHash.verify(password, this.password));
 };
 
 // exportando o modelo criado como User e usando o schema criado
