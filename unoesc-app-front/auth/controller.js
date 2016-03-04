@@ -1,9 +1,7 @@
 (function() {
     'use strict';
     
-    angular
-        .module('auth')
-        .controller('AuthController', AuthController);
+    angular.module('auth').controller('AuthController', AuthController);
     
     AuthController.$inject = ['AuthService','Storage','$location'];
     

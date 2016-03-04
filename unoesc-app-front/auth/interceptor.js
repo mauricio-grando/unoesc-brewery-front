@@ -1,9 +1,7 @@
 (function() {
     'use strict';
     
-    angular
-        .module('auth')
-        .factory('AuthInterceptor', AuthInterceptor);
+    angular.module('auth').factory('AuthInterceptor', AuthInterceptor);
     
     AuthInterceptor.$inject = ['Storage','$location'];
     
